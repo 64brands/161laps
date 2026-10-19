@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>161 LAPS</title>
+  <meta name="theme-color" content="#000000">
+  <link rel="icon" href="data:,">
+  <link rel="preload" as="image" href="assets/hero.webp" type="image/webp" fetchpriority="high">
+  <style>
+    html,
+    body {
+      margin: 0;
+      background: #000;
+      height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+    }
+
+    .hero {
+      position: fixed;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+    }
+
+    .hero img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .logo {
+      display: block;
+      width: min(65vw, 49dvh, 27rem);
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <picture class="hero">
+    <source srcset="assets/hero.webp" type="image/webp">
+    <img src="assets/hero.jpg" alt="" width="1254" height="1254" fetchpriority="high">
+  </picture>
+  <main>
+    <h1>
+      <img class="logo" src="161LAPS-white.png" alt="161 LAPS" width="251" height="150">
+    </h1>
+  </main>
+</body>
+</html>
