@@ -4,8 +4,5 @@
 /assets/*
   Cache-Control: public, max-age=86400
 
-/161LAPS-white.png
-  Cache-Control: public, max-age=86400
-
-/161LAPS-black.png
+/161LAPS-white.svg
   Cache-Control: public, max-age=86400

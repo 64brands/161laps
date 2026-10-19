@@ -55,7 +55,9 @@
 
     .logo {
       display: block;
-      width: min(65vw, 49dvh, 27rem);
+      /* The SVG canvas is square and padded. Dividing by the ink width
+         keeps the mark the same size as the approved layout. */
+      width: calc(min(65vw, 49dvh, 27rem) / 0.898);
       height: auto;
     }
   </style>
@@ -67,7 +69,7 @@
   </picture>
   <main>
     <h1>
-      <img class="logo" src="161LAPS-white.png" alt="161 LAPS" width="251" height="150">
+      <img class="logo" src="161LAPS-white.svg" alt="161 LAPS" width="3000" height="3000">
     </h1>
   </main>
 </body>
