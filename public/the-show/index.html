@@ -6,6 +6,7 @@
   <title>the show</title>
   <meta name="theme-color" content="#000000" media="(min-width: 1024px)">
   <link rel="icon" href="data:,">
+  <link rel="preload" as="image" type="image/webp" imagesizes="100vw" imagesrcset="/assets/show-pit-640.webp 640w, /assets/show-pit-960.webp 960w, /assets/show-pit-1280.webp 1280w, /assets/show-pit-1920.webp 1920w, /assets/show-pit-2560.webp 2560w">
   <style>
     html,
     body {
@@ -19,43 +20,110 @@
       line-height: 1.6;
     }
 
-    .wrap {
+    .hero {
+      position: relative;
+      height: 100svh;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .hero-photo {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
       box-sizing: border-box;
-      width: min(42rem, 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      width: min(72.5rem, 100%);
+      height: 100%;
       margin-inline: auto;
       padding:
-        calc(env(safe-area-inset-top, 0px) + 1.5rem)
+        calc(env(safe-area-inset-top, 0px) + 1.25rem)
         max(1.25rem, env(safe-area-inset-right, 0px))
-        calc(env(safe-area-inset-bottom, 0px) + 4rem)
+        5.5rem
         max(1.25rem, env(safe-area-inset-left, 0px));
     }
 
     .brand {
       display: block;
-      width: 7.25rem;
+      width: clamp(4.75rem, 18vw, 7.25rem);
       height: auto;
     }
 
     h1 {
-      margin: 3.25rem 0 0;
-      font-size: clamp(2.75rem, 12vw, 4.75rem);
+      margin: 1.25rem 0 0;
+      font-size: clamp(3rem, 8vw, 6rem);
       font-weight: 500;
       letter-spacing: -0.045em;
       line-height: 0.92;
     }
 
-    .part {
-      margin-top: 2.75rem;
-      padding-top: 1.75rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.18);
+    .subtitle {
+      max-width: 16em;
+      margin: 0.85rem 0 0;
+      font-size: clamp(1.2rem, 2.2vw, 1.75rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
     }
 
-    h2 {
+    .page {
+      position: relative;
+      z-index: 2;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+      width: min(72.5rem, 100%);
+      margin: -3rem auto 0;
+      padding:
+        0
+        max(1.25rem, env(safe-area-inset-right, 0px))
+        calc(env(safe-area-inset-bottom, 0px) + 4.5rem)
+        max(1.25rem, env(safe-area-inset-left, 0px));
+    }
+
+    .panel {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 20px;
+      background: #1a1a1a;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+      padding: 1.5rem;
+    }
+
+    .panel--glass {
+      background: rgba(22, 22, 22, 0.82);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+    }
+
+    .panel--feature {
+      padding-bottom: 2rem;
+    }
+
+    h2,
+    h3 {
       margin: 0;
-      font-size: clamp(1.75rem, 6vw, 2.25rem);
       font-weight: 500;
       letter-spacing: -0.03em;
       line-height: 1.15;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+    }
+
+    h3 {
+      font-size: clamp(1.35rem, 2vw, 1.6rem);
     }
 
     .prose {
@@ -65,55 +133,130 @@
       line-height: 1.65;
     }
 
-    .prose:empty {
-      display: none;
-    }
-
-    .prose p {
+    .prose p,
+    .signoff {
       margin: 0 0 1rem;
     }
 
-    .prose p:last-child {
+    .prose p:last-child,
+    .signoff {
       margin-bottom: 0;
     }
 
-    .prose ul {
-      margin: 0 0 1rem;
+    .questions {
+      margin: 1.25rem 0 1.5rem;
       padding: 0;
       list-style: none;
     }
 
-    .prose li {
-      margin: 0 0 0.35rem;
+    .questions li {
+      margin: 0 0 0.4rem;
     }
 
-    .interlude {
-      margin: 2.75rem 0 0;
+    .closer {
+      margin: 1.75rem 0 0;
+      font-size: clamp(1.45rem, 2.4vw, 2rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
     }
 
-    .interlude:empty,
-    .interlude:not(:has(img)) {
+    .statement {
+      max-width: 12em;
+      margin: 1.75rem 0;
+      font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 1.18;
+    }
+
+    .pull {
+      max-width: 20em;
+      margin: 1.5rem 0;
+      font-size: clamp(1.3rem, 2vw, 1.65rem);
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      line-height: 1.3;
+    }
+
+    .host-name {
+      margin: 1.15rem 0 0;
+      font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .host-role {
+      margin: 0.3rem 0 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 1rem;
+    }
+
+    .host-photo:not(:has(img)) {
       display: none;
     }
 
-    .interlude img {
+    .bio:has(.host-photo img) {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .host-photo img {
       display: block;
       width: 100%;
       height: auto;
+      border-radius: 16px;
+    }
+
+    .signoff {
+      margin-top: 1.5rem;
+    }
+
+    .band-title {
+      margin: 0.35rem 0 0;
+    }
+
+    .split {
+      display: grid;
+      align-items: start;
+      gap: 1.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .contact-success {
+      margin-top: 1.35rem;
+    }
+
+    .contact-success[hidden],
+    .contact-form[hidden],
+    .contact-status[hidden] {
+      display: none;
+    }
+
+    .contact-success-kicker,
+    .contact-success-thanks {
+      margin: 0;
+    }
+
+    .contact-success-kicker {
+      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .contact-success-thanks {
+      margin-top: 0.75rem;
+      font-size: 1.0625rem;
     }
 
     .contact-form {
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 17px;
-      margin-top: 1.25rem;
-    }
-
-    .contact-form[hidden],
-    .contact-success[hidden],
-    .contact-status[hidden] {
-      display: none;
+      gap: 1.05rem;
+      margin-top: 1.5rem;
     }
 
     .contact-visually-hidden,
@@ -129,7 +272,15 @@
       border: 0;
     }
 
-    .contact-desktop-label,
+    .contact-desktop-label {
+      display: block;
+      margin: 0 0 0.4rem 0.15rem;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+    }
+
     .contact-send-label--desktop {
       display: none;
     }
@@ -138,20 +289,26 @@
     .contact-phone {
       display: block;
       margin: 0;
+      min-width: 0;
     }
 
     .contact-phone {
       display: flex;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .contact-phone .contact-desktop-label {
+      flex: 1 0 100%;
     }
 
     .contact-field--dial {
-      width: 128px;
-      flex: 0 0 128px;
+      width: 8rem;
+      flex: 0 0 8rem;
     }
 
     .contact-field--number {
-      flex: 1 1 auto;
+      flex: 1 1 8rem;
       min-width: 0;
     }
 
@@ -161,12 +318,12 @@
       box-sizing: border-box;
       display: block;
       width: 100%;
-      height: 48px;
+      height: 3rem;
       margin: 0;
-      padding: 0 14px;
-      border: 1px solid #fff;
+      padding: 0 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.22);
       border-radius: 12px;
-      background: #000;
+      background: #111;
       color: #fff;
       color-scheme: dark;
       font-family: inherit;
@@ -177,23 +334,22 @@
     }
 
     .contact-form select {
-      padding-right: 32px;
+      padding-right: 2rem;
       background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='white' d='M1.2.8 6 5.6 10.8.8 12 2 6 8 0 2z'/></svg>");
       background-repeat: no-repeat;
-      background-position: right 12px center;
+      background-position: right 0.8rem center;
       background-size: 12px 8px;
     }
 
     .contact-form textarea {
-      height: 164px;
-      padding: 12px 14px;
+      height: 9.5rem;
+      padding: 0.75rem 0.9rem;
       resize: vertical;
     }
 
     .contact-form input::placeholder,
     .contact-form textarea::placeholder {
-      color: #fff;
-      opacity: 1;
+      color: rgba(255, 255, 255, 0.48);
     }
 
     .contact-form input:focus-visible,
@@ -205,28 +361,35 @@
     }
 
     .contact-word-count {
-      margin: -4px 2px 0;
-      color: #fff;
-      font-size: 13px;
+      margin: -0.15rem 0.15rem 0;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.8rem;
     }
 
     .contact-word-count.is-over {
+      color: #fff;
       font-weight: 700;
     }
 
     .contact-send {
-      height: 48px;
-      margin: 4px 0 0;
-      padding: 0 16px;
-      border: 1px solid #fff;
-      border-radius: 12px;
-      background: #000;
+      height: 3rem;
+      margin: 0.2rem 0 0;
+      padding: 0 1.1rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 14px;
+      background: #111;
       color: #fff;
       font-family: inherit;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       cursor: pointer;
+      transition: background-color 160ms ease, border-color 160ms ease;
+    }
+
+    .contact-send:hover {
+      background: #242424;
+      border-color: rgba(255, 255, 255, 0.5);
     }
 
     .contact-send:disabled {
@@ -240,28 +403,31 @@
       line-height: 1.4;
     }
 
-    .contact-success {
-      margin-top: 1.25rem;
+    @media (min-width: 700px) {
+      .panel {
+        border-radius: 28px;
+        padding: 2.5rem;
+      }
+
+      .panel--feature {
+        padding-bottom: 2.75rem;
+      }
     }
 
-    .contact-success-kicker,
-    .contact-success-thanks {
-      margin: 0;
-    }
-
-    .contact-success-kicker {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      line-height: 1.15;
-    }
-
-    .contact-success-thanks {
-      margin-top: 1rem;
-      font-size: 1.0625rem;
+    @media (min-width: 800px) {
+      .bio:has(.host-photo img) {
+        grid-template-columns: minmax(0, 1.45fr) minmax(12rem, 0.7fr);
+        align-items: start;
+        gap: 2rem;
+      }
     }
 
     @media (min-width: 900px) {
+      .split {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 1.75rem;
+      }
+
       .contact-form {
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -271,8 +437,8 @@
           "message message"
           "count count"
           "send send";
-        column-gap: 20px;
-        row-gap: 16px;
+        column-gap: 1.25rem;
+        row-gap: 1rem;
       }
 
       .contact-field--name { grid-area: name; }
@@ -283,27 +449,19 @@
       .contact-word-count { grid-area: count; }
       .contact-send { grid-area: send; }
 
-      .contact-desktop-label {
-        display: block;
-        margin: 0 0 8px 2px;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-      }
-
       .contact-field--subject {
         display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto 48px;
-        row-gap: 8px;
+        grid-template-rows: auto 3rem;
+        align-content: start;
+        row-gap: 0.4rem;
       }
 
       .contact-phone {
         display: grid;
-        grid-template-columns: 118px minmax(0, 1fr);
-        grid-template-rows: auto 48px;
-        column-gap: 10px;
-        row-gap: 8px;
+        grid-template-columns: 7.4rem minmax(0, 1fr);
+        grid-template-rows: auto 3rem;
+        column-gap: 0.65rem;
+        row-gap: 0.4rem;
       }
 
       .contact-phone .contact-desktop-label,
@@ -317,7 +475,6 @@
         grid-column: 1;
         grid-row: 2;
         width: auto;
-        flex: none;
       }
 
       .contact-field--number {
@@ -325,21 +482,13 @@
         grid-row: 2;
       }
 
-      .contact-form textarea {
-        height: 140px;
-      }
-
       .contact-word-count {
-        margin: -6px 2px 0;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 12px;
         text-align: right;
       }
 
       .contact-send {
-        justify-self: center;
-        width: 200px;
-        letter-spacing: 0.08em;
+        justify-self: start;
+        width: 12.5rem;
       }
 
       .contact-send-label--mobile {
@@ -350,163 +499,192 @@
         display: inline;
       }
     }
+
+    @media (min-width: 1100px) {
+      .panel {
+        padding: 3.5rem;
+      }
+
+      .panel--feature {
+        padding-bottom: 3.75rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .contact-send {
+        transition: none;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <a href="/">
-      <img class="brand" src="/161LAPS-white.svg" alt="161 LAPS" width="3000" height="3000">
-    </a>
-    <main>
+  <header class="hero">
+    <picture>
+      <source type="image/webp" srcset="/assets/show-pit-640.webp 640w, /assets/show-pit-960.webp 960w, /assets/show-pit-1280.webp 1280w, /assets/show-pit-1920.webp 1920w, /assets/show-pit-2560.webp 2560w" sizes="100vw">
+      <img class="hero-photo" src="/assets/show-pit-1280.jpg" srcset="/assets/show-pit-640.jpg 640w, /assets/show-pit-960.jpg 960w, /assets/show-pit-1280.jpg 1280w, /assets/show-pit-1920.jpg 1920w, /assets/show-pit-2560.jpg 2560w" sizes="100vw" alt="An empty pit lane in monochrome, fading to black." width="4096" height="4096" fetchpriority="high">
+    </picture>
+    <div class="hero-copy">
+      <a href="/">
+        <img class="brand" src="/161LAPS-white.svg" alt="161 LAPS" width="3000" height="3000">
+      </a>
       <h1>the show</h1>
+      <p class="subtitle">Conversations with the people behind motorsport.</p>
+    </div>
+  </header>
 
-      <section class="part" aria-labelledby="section-1">
-        <h2 id="section-1">Conversations with the people behind motorsport.</h2>
-        <div class="prose">
-          <p>161 LAPS is a new interview show about the people, stories and lives behind motorsport — not just what happens on the racetrack.</p>
-          <p>Hosted by Paul Burfitt, 161 LAPS brings together drivers, team owners, engineers, sponsors, officials, promoters, media people and others who have built their lives around the sport.</p>
-          <p>The conversations are relaxed, personal and genuine.</p>
-          <p>There’s no race recap, no press-conference script and no requirement to arrive with something to promote.</p>
-          <p>Instead, we talk about the experiences people don’t always get asked about.</p>
-          <ul>
-            <li>How did you get started?</li>
-            <li>What nearly stopped you?</li>
-            <li>What did motorsport teach you?</li>
-            <li>What happened when things didn’t go to plan?</li>
-            <li>Who helped you along the way?</li>
-            <li>What happens away from the track — or when the racing eventually stops?</li>
-          </ul>
-          <p>And sometimes the simplest question is the most interesting:</p>
-          <p>What have you got to lose?</p>
-        </div>
-      </section>
-      <figure class="interlude"><!-- image --></figure>
+  <main class="page">
+    <section class="panel panel--glass" aria-labelledby="what-is-161-laps">
+      <h2 id="what-is-161-laps">What is 161 LAPS?</h2>
+      <div class="prose">
+        <p>161 LAPS is a new interview show about the people, stories and lives behind motorsport — not just what happens on the racetrack.</p>
+        <p>Hosted by Paul Burfitt, 161 LAPS brings together drivers, team owners, engineers, sponsors, officials, promoters, media people and others who have built their lives around the sport.</p>
+        <p>The conversations are relaxed, personal and genuine.</p>
+        <p>There’s no race recap, no press-conference script and no requirement to arrive with something to promote.</p>
+        <p>Instead, we talk about the experiences people don’t always get asked about.</p>
+        <ul class="questions">
+          <li>How did you get started?</li>
+          <li>What nearly stopped you?</li>
+          <li>What did motorsport teach you?</li>
+          <li>What happened when things didn’t go to plan?</li>
+          <li>Who helped you along the way?</li>
+          <li>What happens away from the track — or when the racing eventually stops?</li>
+        </ul>
+        <p>And sometimes the simplest question is the most interesting:</p>
+        <p class="closer">What have you got to lose?</p>
+      </div>
+    </section>
 
-      <section class="part" aria-labelledby="section-2">
-        <h2 id="section-2">The Format</h2>
-        <div class="prose">
-          <p>A relaxed one-on-one video conversation, generally recorded remotely.</p>
-          <p>Allow approximately 45–60 minutes.</p>
-          <p>There’s no preparation required and no list of rehearsed answers. The aim is simply to have a great conversation and see where it goes.</p>
-          <p>Episodes are published across video, podcast and social channels, with shorter moments from the conversation also used to introduce your story to a wider audience.</p>
-        </div>
-      </section>
-      <figure class="interlude"><!-- image --></figure>
+    <section class="panel panel--feature" aria-labelledby="why-161-laps">
+      <h2 id="why-161-laps">Why 161 Laps?</h2>
+      <div class="prose">
+        <p>The Bathurst 1000. Mount Panorama. 161 laps.</p>
+        <p>One of the most iconic races in motorsport. A thousand kilometres of preparation, determination, teamwork, risk and sometimes a little luck.</p>
+        <p>But here's the thing.</p>
+      </div>
+      <p class="statement">You can do everything right for 160 laps, and it can all change in an instant on the last.</p>
+      <div class="prose">
+        <p>That's motorsport. And in many ways, that's life.</p>
+        <p>The victories, the setbacks, the unexpected turns and the people who help you along the way.</p>
+        <p>161 LAPS is about the stories behind those moments — on and off the track.</p>
+      </div>
+    </section>
 
-      <section class="part" aria-labelledby="section-3">
-        <h2 id="section-3">Who is it for?</h2>
-        <div class="prose">
-          <p>161 LAPS is for people who love motorsport — but also for anyone interested in ambition, careers, risk, success, failure, reinvention and the stories behind interesting people.</p>
-          <p>The show begins in Australian motorsport but is being built with a global audience and guest list in mind.</p>
+    <section class="panel" aria-labelledby="behind-the-microphone">
+      <h2 id="behind-the-microphone">Behind the Microphone</h2>
+      <div class="bio">
+        <div class="bio-copy">
+          <p class="host-name">Paul Burfitt</p>
+          <p class="host-role">Founder &amp; Host</p>
+          <div class="prose">
+            <p>I've been involved in motorsport in one way or another for much of my life.</p>
+            <p>I've raced cars, managed drivers and professional race teams, worked with sponsors, negotiated commercial partnerships and experienced both the excitement and the frustrations that come with being part of the sport.</p>
+            <p>Along the way, I've met some remarkable people. Not just the drivers whose names appear on the results sheets, but the team owners, engineers, mechanics, officials, promoters, sponsors and countless others who make motorsport what it is.</p>
+            <p class="pull">And one thing I've learned is that some of the most interesting stories have absolutely nothing to do with who won the race.</p>
+            <p>They're about the decisions people make, the risks they take, the opportunities they chase, the disappointments they overcome and the lives they build along the way.</p>
+            <p>That's what interests me.</p>
+            <p>161 LAPS isn't about conducting another post-race interview or asking the same questions you've answered a hundred times before.</p>
+            <p>It's an opportunity to sit down, have a genuine conversation and explore the stories people rarely get the chance to tell.</p>
+            <p>No scripts. No agendas. Just a good conversation.</p>
+            <p>And hopefully, a few laughs along the way.</p>
+            <p class="signoff">Paul Burfitt<br>Founder &amp; Host — 161 LAPS</p>
+          </div>
         </div>
-      </section>
-      <figure class="interlude"><!-- image --></figure>
+        <figure class="host-photo"><!-- host photograph --></figure>
+      </div>
+    </section>
 
-      <section class="part" aria-labelledby="section-4">
-        <h2 id="section-4">Why 161 Laps?</h2>
-        <div class="prose">
-          <p>The Bathurst 1000. Mount Panorama. 161 laps.</p>
-          <p>One of the most iconic races in motorsport. A thousand kilometres of preparation, determination, teamwork, risk and sometimes a little luck.</p>
-          <p>But here's the thing.</p>
-          <p>Everything can go right for 160 and even 161 laps, and it can all change in an instant.</p>
-          <p>That's motorsport. And in many ways, that's life.</p>
-          <p>The victories, the setbacks, the unexpected turns and the people who help you along the way.</p>
-          <p>161 LAPS is about the stories behind those moments — on and off the track.</p>
-        </div>
-      </section>
-      <figure class="interlude"><!-- image --></figure>
+    <section class="band" aria-labelledby="the-conversations">
+      <h2 class="band-title" id="the-conversations">The Conversations</h2>
+      <div class="split">
+        <article class="panel" aria-labelledby="the-format">
+          <h3 id="the-format">The Format</h3>
+          <div class="prose">
+            <p>A relaxed one-on-one video conversation, generally recorded remotely.</p>
+            <p>Allow approximately 45–60 minutes.</p>
+            <p>There’s no preparation required and no list of rehearsed answers. The aim is simply to have a great conversation and see where it goes.</p>
+            <p>Episodes are published across video, podcast and social channels, with shorter moments from the conversation also used to introduce your story to a wider audience.</p>
+          </div>
+        </article>
+        <article class="panel" aria-labelledby="who-is-it-for">
+          <h3 id="who-is-it-for">Who is it for?</h3>
+          <div class="prose">
+            <p>161 LAPS is for people who love motorsport — but also for anyone interested in ambition, careers, risk, success, failure, reinvention and the stories behind interesting people.</p>
+            <p>The show begins in Australian motorsport but is being built with a global audience and guest list in mind.</p>
+          </div>
+        </article>
+      </div>
+    </section>
 
-      <section class="part" aria-labelledby="section-5">
-        <h2 id="section-5">You're Invited</h2>
-        <div class="prose">
-          <p>I’d love you to join me for an episode.</p>
-          <p>No hard sell. No gotcha questions. No corporate script.</p>
-          <p>Just a genuine conversation about your story and the road that got you here.</p>
-          <p>What have you got to lose?</p>
-        </div>
-      </section>
-      <figure class="interlude"><!-- image --></figure>
+    <section class="panel" aria-labelledby="youre-invited">
+      <h2 id="youre-invited">You're Invited</h2>
+      <div class="prose">
+        <p>I’d love you to join me for an episode.</p>
+        <p>No hard sell. No gotcha questions. No corporate script.</p>
+        <p>Just a genuine conversation about your story and the road that got you here.</p>
+        <p class="closer">What have you got to lose?</p>
+      </div>
+    </section>
 
-      <section class="part" aria-labelledby="behind-the-microphone">
-        <h2 id="behind-the-microphone">Behind the Microphone</h2>
-        <div class="prose">
-          <p>Paul Burfitt — Founder &amp; Host, 161 LAPS</p>
-          <p>I've been involved in motorsport in one way or another for much of my life.</p>
-          <p>I've raced cars, managed drivers and professional race teams, worked with sponsors, negotiated commercial partnerships and experienced both the excitement and the frustrations that come with being part of the sport.</p>
-          <p>Along the way, I've met some remarkable people. Not just the drivers whose names appear on the results sheets, but the team owners, engineers, mechanics, officials, promoters, sponsors and countless others who make motorsport what it is.</p>
-          <p>And one thing I've learned is that some of the most interesting stories have absolutely nothing to do with who won the race.</p>
-          <p>They're about the decisions people make, the risks they take, the opportunities they chase, the disappointments they overcome and the lives they build along the way.</p>
-          <p>That's what interests me.</p>
-          <p>161 LAPS isn't about conducting another post-race interview or asking the same questions you've answered a hundred times before.</p>
-          <p>It's an opportunity to sit down, have a genuine conversation and explore the stories people rarely get the chance to tell.</p>
-          <p>No scripts. No agendas. Just a good conversation.</p>
-          <p>And hopefully, a few laughs along the way.</p>
-          <p>Paul Burfitt<br>Fournder &amp; Host — 161 LAPS</p>
-        </div>
-      </section>
-      <figure class="interlude"><!-- image --></figure>
-
-      <section class="part" aria-labelledby="section-6">
-        <h2 id="section-6">Get in touch</h2>
-        <div class="contact-success" hidden role="status" aria-live="polite">
-          <p class="contact-success-kicker">MESSAGE SENT</p>
-          <p class="contact-success-thanks">Thanks — I’ll get back to you.</p>
-        </div>
-        <form class="contact-form" id="contact-form" novalidate>
-          <label class="contact-field contact-field--subject">
-            <span class="contact-visually-hidden">Subject</span>
-            <span class="contact-desktop-label">ENQUIRY TYPE</span>
-            <select name="subject" required>
-              <option value="" disabled selected>Subject</option>
-              <option value="Become a Guest">Become a Guest</option>
-              <option value="General Comments">General Comments</option>
-              <option value="Commercial Partnerships">Commercial Partnerships</option>
+    <section class="panel" aria-labelledby="get-in-touch">
+      <h2 id="get-in-touch">Get in touch</h2>
+      <div class="contact-success" hidden role="status" aria-live="polite">
+        <p class="contact-success-kicker">MESSAGE SENT</p>
+        <p class="contact-success-thanks">Thanks — I’ll get back to you.</p>
+      </div>
+      <form class="contact-form" id="contact-form" novalidate>
+        <label class="contact-field contact-field--subject">
+          <span class="contact-visually-hidden">Subject</span>
+          <span class="contact-desktop-label">ENQUIRY TYPE</span>
+          <select name="subject" required>
+            <option value="" disabled selected>Subject</option>
+            <option value="Become a Guest">Become a Guest</option>
+            <option value="General Comments">General Comments</option>
+            <option value="Commercial Partnerships">Commercial Partnerships</option>
+          </select>
+        </label>
+        <label class="contact-field contact-field--name">
+          <span class="contact-visually-hidden">Your Name</span>
+          <span class="contact-desktop-label">NAME</span>
+          <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+        </label>
+        <label class="contact-field contact-field--email">
+          <span class="contact-visually-hidden">Email Address</span>
+          <span class="contact-desktop-label">EMAIL</span>
+          <input type="email" name="email" placeholder="Email Address" autocomplete="email" inputmode="email" required>
+        </label>
+        <div class="contact-phone">
+          <span class="contact-desktop-label">PHONE</span>
+          <label class="contact-field contact-field--dial">
+            <span class="contact-visually-hidden">Country dial code</span>
+            <select name="dial" required>
+              <option value="" disabled selected>Code</option>
             </select>
           </label>
-          <label class="contact-field contact-field--name">
-            <span class="contact-visually-hidden">Your Name</span>
-            <span class="contact-desktop-label">NAME</span>
-            <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+          <label class="contact-field contact-field--number">
+            <span class="contact-visually-hidden">Phone Number</span>
+            <input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel-national" inputmode="tel" required>
           </label>
-          <label class="contact-field contact-field--email">
-            <span class="contact-visually-hidden">Email Address</span>
-            <span class="contact-desktop-label">EMAIL</span>
-            <input type="email" name="email" placeholder="Email Address" autocomplete="email" inputmode="email" required>
+        </div>
+        <label class="contact-field contact-field--message">
+          <span class="contact-visually-hidden">Your Message</span>
+          <span class="contact-desktop-label">MESSAGE</span>
+          <textarea name="message" placeholder="Your Message..." rows="6" required></textarea>
+        </label>
+        <p class="contact-word-count" aria-live="polite">0 / 500 words</p>
+        <div class="contact-hp" aria-hidden="true">
+          <label>
+            Website
+            <input type="text" name="website" tabindex="-1" autocomplete="off">
           </label>
-          <div class="contact-phone">
-            <span class="contact-desktop-label">PHONE</span>
-            <label class="contact-field contact-field--dial">
-              <span class="contact-visually-hidden">Country dial code</span>
-              <select name="dial" required>
-                <option value="" disabled selected>Code</option>
-              </select>
-            </label>
-            <label class="contact-field contact-field--number">
-              <span class="contact-visually-hidden">Phone Number</span>
-              <input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel-national" inputmode="tel" required>
-            </label>
-          </div>
-          <label class="contact-field contact-field--message">
-            <span class="contact-visually-hidden">Your Message</span>
-            <span class="contact-desktop-label">MESSAGE</span>
-            <textarea name="message" placeholder="Your Message..." rows="6" required></textarea>
-          </label>
-          <p class="contact-word-count" aria-live="polite">0 / 500 words</p>
-          <div class="contact-hp" aria-hidden="true">
-            <label>
-              Website
-              <input type="text" name="website" tabindex="-1" autocomplete="off">
-            </label>
-          </div>
-          <button class="contact-send" type="submit">
-            <span class="contact-send-label--mobile">SEND MESSAGE</span>
-            <span class="contact-send-label--desktop">SEND</span>
-          </button>
-        </form>
-        <p class="contact-status" hidden></p>
-      </section>
-    </main>
-  </div>
+        </div>
+        <button class="contact-send" type="submit">
+          <span class="contact-send-label--mobile">SEND MESSAGE</span>
+          <span class="contact-send-label--desktop">SEND</span>
+        </button>
+      </form>
+      <p class="contact-status" hidden></p>
+    </section>
+  </main>
   <script src="/contact-form.js" defer></script>
 </body>
 </html>
