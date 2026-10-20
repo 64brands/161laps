@@ -1,6 +1,12 @@
 /
   Cache-Control: public, max-age=300
 
+/the-show
+  Cache-Control: public, max-age=300
+
+/the-show/
+  Cache-Control: public, max-age=300
+
 /assets/*
   Cache-Control: public, max-age=86400
 

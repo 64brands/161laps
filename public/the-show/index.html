@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>the show</title>
+  <meta name="theme-color" content="#000000" media="(min-width: 1024px)">
+  <link rel="icon" href="data:,">
+  <style>
+    html,
+    body {
+      margin: 0;
+      background: #000;
+      color: #fff;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .wrap {
+      box-sizing: border-box;
+      width: min(42rem, 100%);
+      margin-inline: auto;
+      padding:
+        calc(env(safe-area-inset-top, 0px) + 1.5rem)
+        max(1.25rem, env(safe-area-inset-right, 0px))
+        calc(env(safe-area-inset-bottom, 0px) + 4rem)
+        max(1.25rem, env(safe-area-inset-left, 0px));
+    }
+
+    .brand {
+      display: block;
+      width: 7.25rem;
+      height: auto;
+    }
+
+    h1 {
+      margin: 3.25rem 0 0;
+      font-size: clamp(2.75rem, 12vw, 4.75rem);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 0.92;
+    }
+
+    .part {
+      margin-top: 2.75rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(1.75rem, 6vw, 2.25rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    .prose {
+      max-width: 38rem;
+      margin-top: 1.25rem;
+      font-size: 1.0625rem;
+      line-height: 1.65;
+    }
+
+    .prose:empty {
+      display: none;
+    }
+
+    .prose p {
+      margin: 0 0 1rem;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .interlude {
+      margin: 2.75rem 0 0;
+    }
+
+    .interlude:empty,
+    .interlude:not(:has(img)) {
+      display: none;
+    }
+
+    .interlude img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="/">
+      <img class="brand" src="/161LAPS-white.svg" alt="161 LAPS" width="3000" height="3000">
+    </a>
+    <main>
+      <h1>the show</h1>
+
+      <section class="part" aria-labelledby="section-1">
+        <h2 id="section-1">1</h2>
+        <div class="prose"></div>
+      </section>
+      <figure class="interlude"><!-- image --></figure>
+
+      <section class="part" aria-labelledby="section-2">
+        <h2 id="section-2">2</h2>
+        <div class="prose"></div>
+      </section>
+      <figure class="interlude"><!-- image --></figure>
+
+      <section class="part" aria-labelledby="section-3">
+        <h2 id="section-3">3</h2>
+        <div class="prose"></div>
+      </section>
+      <figure class="interlude"><!-- image --></figure>
+
+      <section class="part" aria-labelledby="section-4">
+        <h2 id="section-4">4</h2>
+        <div class="prose"></div>
+      </section>
+      <figure class="interlude"><!-- image --></figure>
+
+      <section class="part" aria-labelledby="section-5">
+        <h2 id="section-5">5</h2>
+        <div class="prose"></div>
+      </section>
+      <figure class="interlude"><!-- image --></figure>
+
+      <section class="part" aria-labelledby="section-6">
+        <h2 id="section-6">6</h2>
+        <div class="prose"></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
