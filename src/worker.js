@@ -13,7 +13,7 @@ var ALLOWED_SUBJECTS = [
 ];
 
 var CONTACT_TO = "paul@161laps.com";
-var CONTACT_FROM = "161 LAPS Website <website@send.161laps.com>";
+var CONTACT_FROM = "161 Laps Website <website@send.161laps.com>";
 
 function isContactApi(pathname) {
   return pathname === "/api/contact" || pathname === "/api/contact/";
@@ -122,7 +122,7 @@ function buildEmail(body) {
   var safeEmail = escapeHtml(email);
 
   var text = [
-    "New 161 LAPS website enquiry",
+    "New 161 Laps website enquiry",
     "",
     "Enquiry Type: " + subject,
     "Name: " + name,
@@ -136,7 +136,7 @@ function buildEmail(body) {
   ].join("\n");
 
   var html =
-    "<p><strong>New 161 LAPS website enquiry</strong></p>" +
+    "<p><strong>New 161 Laps website enquiry</strong></p>" +
     "<p><strong>Enquiry Type:</strong> " +
     escapeHtml(subject) +
     "</p>" +
@@ -160,7 +160,7 @@ function buildEmail(body) {
     from: CONTACT_FROM,
     to: [CONTACT_TO],
     reply_to: email,
-    subject: "161 LAPS Contact — " + subject + " — " + name,
+    subject: "161 Laps Contact — " + subject + " — " + name,
     text: text,
     html: html,
   };
