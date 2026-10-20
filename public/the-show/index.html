@@ -101,6 +101,255 @@
       width: 100%;
       height: auto;
     }
+
+    .contact-form {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      margin-top: 1.25rem;
+    }
+
+    .contact-form[hidden],
+    .contact-success[hidden],
+    .contact-status[hidden] {
+      display: none;
+    }
+
+    .contact-visually-hidden,
+    .contact-hp {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .contact-desktop-label,
+    .contact-send-label--desktop {
+      display: none;
+    }
+
+    .contact-field,
+    .contact-phone {
+      display: block;
+      margin: 0;
+    }
+
+    .contact-phone {
+      display: flex;
+      gap: 10px;
+    }
+
+    .contact-field--dial {
+      width: 128px;
+      flex: 0 0 128px;
+    }
+
+    .contact-field--number {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea {
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+      height: 48px;
+      margin: 0;
+      padding: 0 14px;
+      border: 1px solid #fff;
+      border-radius: 12px;
+      background: #000;
+      color: #fff;
+      color-scheme: dark;
+      font-family: inherit;
+      font-size: 16px;
+      line-height: 1.3;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .contact-form select {
+      padding-right: 32px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='white' d='M1.2.8 6 5.6 10.8.8 12 2 6 8 0 2z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 12px 8px;
+    }
+
+    .contact-form textarea {
+      height: 164px;
+      padding: 12px 14px;
+      resize: vertical;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #fff;
+      opacity: 1;
+    }
+
+    .contact-form input:focus-visible,
+    .contact-form select:focus-visible,
+    .contact-form textarea:focus-visible,
+    .contact-send:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .contact-word-count {
+      margin: -4px 2px 0;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .contact-word-count.is-over {
+      font-weight: 700;
+    }
+
+    .contact-send {
+      height: 48px;
+      margin: 4px 0 0;
+      padding: 0 16px;
+      border: 1px solid #fff;
+      border-radius: 12px;
+      background: #000;
+      color: #fff;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+    }
+
+    .contact-send:disabled {
+      opacity: 0.65;
+      cursor: default;
+    }
+
+    .contact-status {
+      margin: 1rem 0 0;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .contact-success {
+      margin-top: 1.25rem;
+    }
+
+    .contact-success-kicker,
+    .contact-success-thanks {
+      margin: 0;
+    }
+
+    .contact-success-kicker {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.15;
+    }
+
+    .contact-success-thanks {
+      margin-top: 1rem;
+      font-size: 1.0625rem;
+    }
+
+    @media (min-width: 900px) {
+      .contact-form {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas:
+          "name email"
+          "phone type"
+          "message message"
+          "count count"
+          "send send";
+        column-gap: 20px;
+        row-gap: 16px;
+      }
+
+      .contact-field--name { grid-area: name; }
+      .contact-field--email { grid-area: email; }
+      .contact-phone { grid-area: phone; }
+      .contact-field--subject { grid-area: type; }
+      .contact-field--message { grid-area: message; }
+      .contact-word-count { grid-area: count; }
+      .contact-send { grid-area: send; }
+
+      .contact-desktop-label {
+        display: block;
+        margin: 0 0 8px 2px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+      }
+
+      .contact-field--subject {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto 48px;
+        row-gap: 8px;
+      }
+
+      .contact-phone {
+        display: grid;
+        grid-template-columns: 118px minmax(0, 1fr);
+        grid-template-rows: auto 48px;
+        column-gap: 10px;
+        row-gap: 8px;
+      }
+
+      .contact-phone .contact-desktop-label,
+      .contact-field--subject .contact-desktop-label {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        margin-bottom: 0;
+      }
+
+      .contact-field--dial {
+        grid-column: 1;
+        grid-row: 2;
+        width: auto;
+        flex: none;
+      }
+
+      .contact-field--number {
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      .contact-form textarea {
+        height: 140px;
+      }
+
+      .contact-word-count {
+        margin: -6px 2px 0;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        text-align: right;
+      }
+
+      .contact-send {
+        justify-self: center;
+        width: 200px;
+        letter-spacing: 0.08em;
+      }
+
+      .contact-send-label--mobile {
+        display: none;
+      }
+
+      .contact-send-label--desktop {
+        display: inline;
+      }
+    }
   </style>
 </head>
 <body>
@@ -181,9 +430,65 @@
 
       <section class="part" aria-labelledby="section-6">
         <h2 id="section-6">6</h2>
-        <div class="prose"></div>
+        <div class="contact-success" hidden role="status" aria-live="polite">
+          <p class="contact-success-kicker">MESSAGE SENT</p>
+          <p class="contact-success-thanks">Thanks — I’ll get back to you.</p>
+        </div>
+        <form class="contact-form" id="contact-form" novalidate>
+          <label class="contact-field contact-field--subject">
+            <span class="contact-visually-hidden">Subject</span>
+            <span class="contact-desktop-label">ENQUIRY TYPE</span>
+            <select name="subject" required>
+              <option value="" disabled selected>Subject</option>
+              <option value="Become a Guest">Become a Guest</option>
+              <option value="General Comments">General Comments</option>
+              <option value="Commercial Partnerships">Commercial Partnerships</option>
+            </select>
+          </label>
+          <label class="contact-field contact-field--name">
+            <span class="contact-visually-hidden">Your Name</span>
+            <span class="contact-desktop-label">NAME</span>
+            <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+          </label>
+          <label class="contact-field contact-field--email">
+            <span class="contact-visually-hidden">Email Address</span>
+            <span class="contact-desktop-label">EMAIL</span>
+            <input type="email" name="email" placeholder="Email Address" autocomplete="email" inputmode="email" required>
+          </label>
+          <div class="contact-phone">
+            <span class="contact-desktop-label">PHONE</span>
+            <label class="contact-field contact-field--dial">
+              <span class="contact-visually-hidden">Country dial code</span>
+              <select name="dial" required>
+                <option value="" disabled selected>Code</option>
+              </select>
+            </label>
+            <label class="contact-field contact-field--number">
+              <span class="contact-visually-hidden">Phone Number</span>
+              <input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel-national" inputmode="tel" required>
+            </label>
+          </div>
+          <label class="contact-field contact-field--message">
+            <span class="contact-visually-hidden">Your Message</span>
+            <span class="contact-desktop-label">MESSAGE</span>
+            <textarea name="message" placeholder="Your Message..." rows="6" required></textarea>
+          </label>
+          <p class="contact-word-count" aria-live="polite">0 / 500 words</p>
+          <div class="contact-hp" aria-hidden="true">
+            <label>
+              Website
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
+          <button class="contact-send" type="submit">
+            <span class="contact-send-label--mobile">SEND MESSAGE</span>
+            <span class="contact-send-label--desktop">SEND</span>
+          </button>
+        </form>
+        <p class="contact-status" hidden></p>
       </section>
     </main>
   </div>
+  <script src="/contact-form.js" defer></script>
 </body>
 </html>
