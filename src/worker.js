@@ -19,6 +19,24 @@ function isContactApi(pathname) {
   return pathname === "/api/contact" || pathname === "/api/contact/";
 }
 
+function isRetiredShowPath(pathname) {
+  return (
+    pathname === "/the-show" ||
+    pathname === "/the-show/" ||
+    pathname === "/the-show/index.html"
+  );
+}
+
+function permanentRedirect(location) {
+  return new Response(null, {
+    status: 301,
+    headers: {
+      Location: location,
+      "Cache-Control": "public, max-age=3600",
+    },
+  });
+}
+
 function json(body, status, extraHeaders) {
   return new Response(JSON.stringify(body), {
     status: status,
@@ -218,6 +236,12 @@ async function handleContact(request, env) {
 export default {
   async fetch(request, env) {
     var url = new URL(request.url);
+    if (isRetiredShowPath(url.pathname)) {
+      return permanentRedirect("https://161laps.com/");
+    }
+    if (url.pathname === "/sitemap.xml/") {
+      return permanentRedirect("https://161laps.com/sitemap.xml");
+    }
     if (isContactApi(url.pathname)) {
       return handleContact(request, env);
     }
