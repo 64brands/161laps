@@ -13,7 +13,7 @@ var ALLOWED_SUBJECTS = [
 ];
 
 var CONTACT_TO = "paul@161laps.com";
-var CONTACT_FROM = "161 Laps Website <website@send.161laps.com>";
+var CONTACT_FROM = "161 Laps Website <paul@161laps.com>";
 
 function isContactApi(pathname) {
   return pathname === "/api/contact" || pathname === "/api/contact/";
@@ -55,6 +55,13 @@ function wordCount(text) {
 
 function isEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(value || "").trim());
+}
+
+function singleLine(value) {
+  return String(value || "")
+    .replace(/[\r\n\u0000]+/g, " ")
+    .replace(/[ \t]+/g, " ")
+    .trim();
 }
 
 function escapeHtml(value) {
@@ -132,9 +139,9 @@ function formatSubmittedAest(date) {
 
 function buildEmail(body) {
   var submitted = formatSubmittedAest(new Date());
-  var subject = String(body.subject).trim();
-  var name = String(body.name).trim();
-  var email = String(body.email).trim();
+  var subject = singleLine(body.subject);
+  var name = singleLine(body.name);
+  var email = singleLine(body.email);
   var phone = String(body.phone).trim();
   var message = String(body.message).trim();
   var safeEmail = escapeHtml(email);
