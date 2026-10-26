@@ -13,7 +13,7 @@ var ALLOWED_SUBJECTS = [
 ];
 
 var CONTACT_TO = "paul@161laps.com";
-var CONTACT_FROM = "161 Laps Website <paul@161laps.com>";
+var CONTACT_FROM = "161 Laps Website <noreply@send.64.com.au>";
 
 function isContactApi(pathname) {
   return pathname === "/api/contact" || pathname === "/api/contact/";
