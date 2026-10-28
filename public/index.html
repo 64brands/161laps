@@ -481,6 +481,75 @@
       line-height: 1.4;
     }
 
+    /* Book-a-recording call to action. Solid white so it stands apart
+       from the glass panels and the glass SEND button. */
+    .book-cta {
+      text-align: center;
+    }
+
+    .book-cta-lead {
+      margin: 0 0 1.15rem;
+      font-size: clamp(1.45rem, 2.4vw, 2rem);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .book-cta-action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .panel .book-cta-action--inline {
+      align-items: flex-start;
+      margin-top: 1.75rem;
+    }
+
+    .book-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      min-height: 3.4rem;
+      padding: 0 1.75rem;
+      border: 1px solid #fff;
+      border-radius: 14px;
+      background: #fff;
+      color: #000;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+      transition: background-color 160ms ease, color 160ms ease;
+    }
+
+    .book-btn:hover {
+      background: rgba(255, 255, 255, 0.82);
+    }
+
+    .book-btn:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 4px;
+    }
+
+    .book-cta-note {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 479px) {
+      .book-btn {
+        width: 100%;
+      }
+    }
+
     @media (min-width: 700px) {
       .panel {
         border-radius: 28px;
@@ -589,7 +658,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .contact-send {
+      .contact-send,
+      .book-btn {
         transition: none;
       }
     }
@@ -628,6 +698,14 @@
         <p class="closer">What have you got to lose?</p>
       </div>
     </section>
+
+    <aside class="panel book-cta" aria-label="Book a recording">
+      <p class="book-cta-lead">Got a story worth telling?</p>
+      <div class="book-cta-action">
+        <a class="book-btn" href="https://cal.com/paulburfitt/161-laps-podcast-recording-with-paul-burfitt">Book your recording</a>
+        <p class="book-cta-note">Recorded remotely · about an hour · times shown in your time zone</p>
+      </div>
+    </aside>
 
     <section class="panel panel--feature" aria-labelledby="why-161-laps">
       <h2 id="why-161-laps">Why 161 Laps?</h2>
@@ -668,6 +746,14 @@
       </div>
     </section>
 
+    <aside class="panel book-cta" aria-label="Book a recording">
+      <p class="book-cta-lead">Ready when you are.</p>
+      <div class="book-cta-action">
+        <a class="book-btn" href="https://cal.com/paulburfitt/161-laps-podcast-recording-with-paul-burfitt">Book your recording</a>
+        <p class="book-cta-note">Recorded remotely · about an hour · times shown in your time zone</p>
+      </div>
+    </aside>
+
     <section class="band" aria-labelledby="the-conversations">
       <h2 class="band-title" id="the-conversations">The Conversations</h2>
       <div class="split">
@@ -697,6 +783,10 @@
         <p>No hard sell. No gotcha questions. No corporate script.</p>
         <p>Just a genuine conversation about your story and the road that got you here.</p>
         <p class="closer">What have you got to lose?</p>
+      </div>
+      <div class="book-cta-action book-cta-action--inline">
+        <a class="book-btn" href="https://cal.com/paulburfitt/161-laps-podcast-recording-with-paul-burfitt">Book your recording</a>
+        <p class="book-cta-note">Pick a time that suits you. Or send me a message below.</p>
       </div>
     </section>
 
